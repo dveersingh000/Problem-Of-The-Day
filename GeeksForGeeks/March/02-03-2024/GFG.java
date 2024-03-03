@@ -1,3 +1,5 @@
+import java.util.HashMap;
+
 class Solution
 {
     public int firstElementKTime(int n, int k, int[] a) 
