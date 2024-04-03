@@ -1,2 +1,1 @@
-Expected Time Complexity: O(Height of the BST)
-Expected Space Complexity: O(Height of the BST)
+Time complexity - O(h) Space complexity - O(h)
