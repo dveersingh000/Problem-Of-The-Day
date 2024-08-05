@@ -1,0 +1,68 @@
+class Solution
+{
+    //Function to return a list containing the bottom view of the given tree.
+    public ArrayList <Integer> bottomView(Node root)
+    {
+        // Code here
+        ArrayList<Integer> result = new ArrayList<>();
+
+        // Edge case: if the root is null
+        if (root == null) {
+            return result;
+        }
+
+        // Map to store the bottom view
+        Map<Integer, Integer> map = new TreeMap<>();
+        // Queue for BFS: stores pair of node and horizontal distance
+        Queue<Pair<Node, Integer>> queue = new LinkedList<>();
+
+        // Initialize the queue with the root node and horizontal distance 0
+        queue.offer(new Pair<>(root, 0));
+
+        while (!queue.isEmpty()) {
+            Pair<Node, Integer> temp = queue.poll();
+            Node node = temp.getKey();
+            int hd = temp.getValue();
+
+            // Update the map with the current node's data
+            map.put(hd, node.data);
+
+            // Enqueue left child with horizontal distance hd - 1
+            if (node.left != null) {
+                queue.offer(new Pair<>(node.left, hd - 1));
+            }
+
+            // Enqueue right child with horizontal distance hd + 1
+            if (node.right != null) {
+                queue.offer(new Pair<>(node.right, hd + 1));
+            }
+        }
+
+        // Add the values from the map to the result list
+        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
+            result.add(entry.getValue());
+        }
+
+        return result;
+    }
+}
+
+// Helper class to store node and its horizontal distance
+class Pair<K, V> {
+    K key;
+    V value;
+
+    Pair(K key, V value) {
+        this.key = key;
+        this.value = value;
+    }
+
+    public K getKey() {
+        return key;
+    }
+
+    public V getValue() {
+        return value;
+        
+    }
+}
