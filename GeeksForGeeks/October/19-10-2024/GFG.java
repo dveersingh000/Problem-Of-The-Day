@@ -1,22 +1,28 @@
 class Solution {
-public:
-    string roundToNearest(string str) {
-        // Convert the string to an integer
-        long long num = stoll(str);
+    String roundToNearest(String str) {
+        int n = str.length();
+        if (n == 0) return str;  
 
-        // Get the last digit of the number
-        int last_digit = num % 10;
+        int lastDigit = str.charAt(n - 1) - '0';  
 
-        // Check if we need to round up or round down
-        if (last_digit >= 5) {
-            // Round up to the next multiple of 10
-            num = num + (10 - last_digit);
+        if (lastDigit <= 5) {
+            str = str.substring(0, n - 1) + '0';  
         } else {
-            // Round down to the nearest multiple of 10
-            num = num - last_digit;
-        }
+            str = str.substring(0, n - 1) + '0';  
+            int i = n - 2;
 
-        // Convert the result back to a string and return
-        return to_string(num);
+            while (i >= 0) {
+                if (str.charAt(i) != '9') {
+                    str = str.substring(0, i) + (char)(str.charAt(i) + 1) + str.substring(i + 1);  
+                    break;
+                }
+                str = str.substring(0, i) + '0' + str.substring(i + 1);  
+                i--;
+            }
+            if (i < 0) {
+                str = '1' + str;  
+            }
+        }
+        return str;
     }
-};
+}
